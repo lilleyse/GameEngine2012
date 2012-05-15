@@ -14,7 +14,7 @@ local headers_location_rel = project_location_rel .. "externals/include/"      -
 local libs_location_rel =    project_location_rel .. "externals/libs/"         -- Libraries
 
 local lib_sfml =   libs_location_rel .. "SFML_2.0/"                            --SFML
-local lib_bullet = libs_location_rel .. "bullet_2.79/"                         --Bullet
+local lib_bullet = libs_location_rel .. "bullet_2.80/"                         --Bullet
 
 local lib_win32 = "win32/"
 local lib_debug =   "Debug/"
