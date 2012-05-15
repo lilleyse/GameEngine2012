@@ -13,14 +13,11 @@ local data_location_rel =    project_location_rel .. "data/"                   -
 local headers_location_rel = project_location_rel .. "externals/include/"      -- Headers
 local libs_location_rel =    project_location_rel .. "externals/libs/"         -- Libraries
 
-local lib_sfml =   libs_location_rel .. "SFML_2.0/"                            --SFML
-local lib_bullet = libs_location_rel .. "bullet_2.80/"                         --Bullet
 
-local lib_win32 = "win32/"
-local lib_debug =   "Debug/"
-local lib_release = "Release/"
 
 --These functions format the lib files properly
+
+--Converts a list of lib paths to lib names
 function matchlibs(dir)
 	local libs = os.matchfiles(dir .. "*")
 	for i=1, #libs do
@@ -29,10 +26,18 @@ function matchlibs(dir)
 	end
 	return libs
 end
-function addlibs(paths)
-	for i,path in pairs(paths) do
-		links(matchlibs(cwd .. path))
-		libdirs(path)
+
+--Adds libs to the project
+function addlibs(build_type) --"Debug" or "Release"
+	local libs = {"SFML_2.0/", "bullet_2.80/"} --This is the only line that needs to be updated for new libs
+	local os_type =       _OPTION["os"] .. "/"
+	local platform_type = _OPTIONS["platform"] .. "/"
+	local build_type =    build_type .. "/"
+	local endpath = os_type .. platform_type .. build_type
+	for i,lib in pairs(libs) do
+		full_path = libs_location_rel .. lib .. endpath
+		links(matchlibs(cwd .. full_path))
+		libdirs(full_path)
 	end
 end
 
@@ -63,16 +68,17 @@ project ( name )
 	targetextension ( ".exe" )                      --Windows executable type
 	links( "opengl32" )                             --finds the opengl lib file
 
+	os_type = ""
+	platform_type = ""
+	if(os.is("windows"))
 	--Debug-----------------------------------
 	configuration "Debug"
 		flags { "Symbols" }
 		defines { "DEBUG" }
-		addlibs({lib_sfml   .. lib_win32 .. lib_debug, 
-			     lib_bullet .. lib_win32 .. lib_debug})
+		addlibs ("Debug")
 		
 	--Release---------------------------------	
 	configuration "Release"
 		flags { "Optimize" }
 		defines { "NDEBUG" }
-		addlibs({lib_sfml   .. lib_release, 
-			     lib_bullet .. lib_release})
+		addlibs ("Release")
