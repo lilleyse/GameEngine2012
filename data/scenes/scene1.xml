@@ -1,0 +1,40 @@
+<scene id="Level1">
+
+
+	<meshes>
+		<import_folder>meshes</import_folder>
+	</meshes>
+	
+	<scene_graph>
+		<node type="moonPhysics" name="the_moon"/>
+
+		
+		<node type="animated_alien" name="alien">
+			<translate>0 0 0</translate>
+		</node>
+		
+		<node type="lightObject" name="light">
+			<translate>10 4 0</translate>
+		</node>
+		
+		<!--node type="lightObject" name="light">
+			<translate>-10 4 0</translate>
+		</node>
+		
+		<node type="lightObject" name="light">
+			<translate>0 4 -10</translate>
+		</node>
+		
+		<node type="lightObject" name="light">
+			<translate>0 4 10</translate>
+		</node-->
+
+		<node type="cameraThirdPersonObject" name="farawayCam">
+			<!--translate>5 5 10</translate-->
+		</node>
+		
+		
+	</scene_graph>
+  
+	
+</scene>
