@@ -1,0 +1,9 @@
+#OS junk files
+[Tt]humbs.db
+*.DS_Store
+
+tools/asset_builder/build/
+tools/collada_parser/build/
+build/
+
+*~*
