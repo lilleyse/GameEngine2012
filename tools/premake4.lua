@@ -1,4 +1,4 @@
---This is a generic 32-bit Windows build script for OpenGL applications
+--Build script for GameEngine2012
 --Author: Ian Lilley
 
 --Appliaction name
@@ -13,10 +13,6 @@ local data_location_rel =    project_location_rel .. "data/"                   -
 local headers_location_rel = project_location_rel .. "externals/headers/"      -- Headers
 local libs_location_rel =    project_location_rel .. "externals/libs/"         -- Libraries
 
-
-
---These functions format the lib files properly
-
 --Converts a list of lib paths to lib names
 function matchlibs(dir)
 	local libs = os.matchfiles(dir .. "*")
@@ -30,12 +26,12 @@ end
 --Adds libs to the project
 function addlibs(build_type) --"Debug" or "Release"
 	local libs = {"SFML_2.0/", "bullet_2.80/"} --This is the only line that needs to be updated for new libs
-	local os_type =       _OPTION["os"] .. "/"
+	local os_type =       _OPTIONS["os"] .. "/"
 	local platform_type = _OPTIONS["platform"] .. "/"
 	local build_type =    build_type .. "/"
 	local endpath = os_type .. platform_type .. build_type
 	for i,lib in pairs(libs) do
-		full_path = libs_location_rel .. lib .. endpath
+		local full_path = libs_location_rel .. lib .. endpath
 		links(matchlibs(cwd .. full_path))
 		libdirs(full_path)
 	end
@@ -68,9 +64,6 @@ project ( name )
 	targetextension ( ".exe" )                      --Windows executable type
 	links( "opengl32" )                             --finds the opengl lib file
 
-	os_type = ""
-	platform_type = ""
-	if(os.is("windows"))
 	--Debug-----------------------------------
 	configuration "Debug"
 		flags { "Symbols" }
