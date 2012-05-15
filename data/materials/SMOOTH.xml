@@ -1,0 +1,14 @@
+<material>
+	<diffuseColor>
+		<r>1.0</r>
+		<g>1.0</g>
+		<b>1.0</b>
+	</diffuseColor>
+	<specularColor>
+		<r>0.5</r>
+		<g>1.0</g>
+		<b>0.5</b>
+	</specularColor>
+	<specularShininess>0.1</specularShininess>
+	<transparency>1.0</transparency>
+</material>

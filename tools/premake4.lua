@@ -2,7 +2,7 @@
 --Author: Ian Lilley
 
 --Appliaction name
-local name = "OpenGLApplication"
+local name = "GameEngine2012"
 
 --Directory stuff
 local cwd = os.getcwd() .. "/"
@@ -10,11 +10,11 @@ local project_location_rel = "../"
 local build_location_rel =   project_location_rel .. "build/"                  -- Build
 local source_location_rel =  project_location_rel .. "src/"                    -- Source
 local data_location_rel =    project_location_rel .. "data/"                   -- Data
-local headers_location_rel = project_location_rel .. "externals/include/"      -- Headers
+local headers_location_rel = project_location_rel .. "externals/headers/"      -- Headers
 local libs_location_rel =    project_location_rel .. "externals/libs/"         -- Libraries
 
 local lib_sfml =   libs_location_rel .. "SFML_2.0/"                            --SFML
-local lib_bullet = libs_location_rel .. "bullet_2.79/"                         --Bullet
+local lib_bullet = libs_location_rel .. "bullet_2.80/"                         --Bullet
 
 local lib_win32 = "win32/"
 local lib_debug =   "Debug/"
