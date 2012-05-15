@@ -1,0 +1,5 @@
+<RenderComponent>
+	<mesh>shapes/miniSphere</mesh>
+	<shader>GAUSSIAN_FRAG_LIGHTING_PROGRAM</shader>
+	<material src="SMOOTH"/>
+</RenderComponent>

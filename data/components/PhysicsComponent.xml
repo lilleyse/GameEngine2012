@@ -1,0 +1,8 @@
+<PhysicsComponent>
+	<mass>1</mass>
+	<restitution>.05</restitution>
+	<friction>.9</friction>
+	<primitive type="sphere">
+		<radius>1</radius>
+	</primitive>	
+</PhysicsComponent>

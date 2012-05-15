@@ -1,0 +1,10 @@
+<RenderComponent>
+	<mesh>alien_anim</mesh>
+	<material src="SMOOTH">
+		<specularShininess>0.2</specularShininess>
+		<transparency>.4</transparency>
+	</material>
+</RenderComponent>
+
+<PhysicsComponent>	
+</PhysicsComponent>
