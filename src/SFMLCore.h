@@ -26,6 +26,5 @@ private:
 	sf::Clock clock;
 	int frameCount;
 	float framerate;
-
 };
 

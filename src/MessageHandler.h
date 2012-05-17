@@ -23,17 +23,29 @@ public:
 	MessageHandler();
 	~MessageHandler();
 
-	//broadcasts a message to all registered objects, callable from anywhere
+	/**
+	*	\brief broadcasts a message to all registered objects, callable from anywhere
+	*/
 	void broadcastMessage(Message& message);
 	
-	//register a object to receive that message type
+	/**
+	*	\brief register a object to receive that message type
+	*/
 	void registerReceiver(MessageType messageType, ReceiverFunction receiver);
 
-	//deregister an object from receiving that message type
+	/**
+	*	\brief deregister an object from receiving that message type
+	*/
 	void deregisterReceiver(MessageType messageType, ReceiverFunction receiver);
 
+	/**
+	*	\brief checks if the message type is in the map
+	*/
 	bool hasMessageType(MessageType messageType);
 
+	/**
+	*	\brief prints the entire message map
+	*/
 	void printState();
 
 private:
