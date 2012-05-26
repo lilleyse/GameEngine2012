@@ -6,4 +6,6 @@ tools/asset_builder/build/
 tools/collada_parser/build/
 build/
 
+html/
+
 *~*
