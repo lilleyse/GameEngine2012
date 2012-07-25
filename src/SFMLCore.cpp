@@ -15,17 +15,17 @@ SFMLCore::SFMLCore(void)
 
 	//RANDOM STUFF --------------
 	GameState gameState;
-	Entity entity(gameState);
+	Entity* entity = new Entity(gameState);
 	Component* component1 = new Component();
 	Component* component2 = new Component();
-	entity.addComponent(component1);
-	entity.addComponent(component2);
-	entity.registerComponent(MESSAGE_DEFAULT,DELEGATE(Component, Component::receiveMessage,component1));
-	//entity.deregisterComponent(MESSAGE_DEFAULT,DELEGATE(Component, Component::receiveMessage,component1));
-	entity.registerComponent(MESSAGE_DEFAULT,DELEGATE(Component, Component::receiveMessage,component1));
+	//entity->addComponent(component1);
+	//entity->addComponent(component2);
+	entity->registerComponent(MESSAGE_DEFAULT,DELEGATE(Component, Component::receiveMessage,component1));
+	entity->deregisterComponent(MESSAGE_DEFAULT,DELEGATE(Component, Component::receiveMessage,component1));
+	entity->registerComponent(MESSAGE_DEFAULT,DELEGATE(Component, Component::receiveMessage,component1));
 
-	entity.registerComponent(MESSAGE_ENTER_FRAME,DELEGATE(Component, Component::enterFrame, component1));
-	entity.registerComponent(MESSAGE_ENTER_FRAME,DELEGATE(Component, Component::enterFrame, component2));
+	entity->registerComponent(MESSAGE_ENTER_FRAME,DELEGATE(Component, Component::enterFrame, component1));
+	entity->registerComponent(MESSAGE_ENTER_FRAME,DELEGATE(Component, Component::enterFrame, component2));
 
 	Message message;
 	message.messageInfo = "Hi there!";
@@ -35,7 +35,7 @@ SFMLCore::SFMLCore(void)
 	enterFrameMessage.framerate = 1000.0f;
 
 	gameState.getMessageHandler().printState();
-	entity.printState();
+	entity->printState();
 	//--------------------------
 
 	int numFrames = 0;

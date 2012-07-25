@@ -1,7 +1,15 @@
 #include "Component.h"
+#include "../Entity.h"
 
-Component::Component(){}
-Component::~Component(){}
+Component::Component()
+{
+	this->parentEntity = 0;
+}
+
+Component::~Component()
+{
+
+}
 
 void Component::receiveMessage(Message& message)
 {

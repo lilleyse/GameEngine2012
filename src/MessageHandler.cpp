@@ -2,83 +2,77 @@
 
 #include "MessageHandler.h"
 
-MessageHandler::MessageHandler(){}
-MessageHandler::~MessageHandler(){}
+MessageHandler::MessageHandler()
+{
+	messageMap.resize(NUM_MESSAGES);
+}
+MessageHandler::~MessageHandler()
+{
+
+}
 
 void MessageHandler::broadcastMessage(Message& message)
 {
-	//See if the message type exists in the map
-	MessageMap::iterator found = this->messageMap.find(message.getType());
-	if(found != this->messageMap.end())
+	// Call all receivers for the message type
+	MessageReceiverList& messageReceiverList = messageMap[message.getType()];
+	for(MessageReceiverList::iterator iter = messageReceiverList.begin(); iter != messageReceiverList.end(); iter++)
 	{
-		//Call all receivers for the message type
-		MessageReceiverList& messageReceiverList = found->second;
-		for(MessageReceiverList::iterator iter = messageReceiverList.begin(); iter != messageReceiverList.end(); iter++)
-		{
-			(*iter)(message);
-		}
+		(*iter)(message);
 	}
 }
 
 void MessageHandler::registerReceiver(MessageType messageType, ReceiverFunction receiver)
 {
-	if(!this->hasReceiver(messageType,receiver))
+	// Try to find if the receiver is already in the list
+	MessageReceiverList& messageReceiverList = this->messageMap[messageType];
+	MessageReceiverList::iterator listIter;
+	for(listIter = messageReceiverList.begin(); listIter != messageReceiverList.end(); ++listIter)
 	{
-		this->messageMap[messageType].push_back(receiver);
+		// TO-DO: does comparing delegates like this work? Before we were comparing .obj_pointer, which is bad
+		if((*listIter) == receiver)
+		{
+			return; // If found in the list, do not add again
+		}
 	}
+
+	// Add receiver to the list
+	this->messageMap[messageType].push_back(receiver);
 }
 
 void MessageHandler::deregisterReceiver(MessageType messageType, ReceiverFunction receiver)
 {
-	//See if the message type exists in the map
-	MessageMap::iterator found = this->messageMap.find(messageType);
-	if(found != this->messageMap.end())
-	{
-		//Remove receiver from list
-		MessageReceiverList& messageReceiverList = found->second;
-		messageReceiverList.remove(receiver);
 
-		//Remove message type from map if there are no more receivers
-		if(messageReceiverList.size() == 0)
-		{	
-			messageMap.erase(messageType);
-		}
-	}
-}
-
-bool MessageHandler::hasReceiver(MessageType messageType, ReceiverFunction receiver)
-{
-	//See if the message type exists in the map
-	MessageMap::iterator found = this->messageMap.find(messageType);
-	if(found != this->messageMap.end())
+	// If the receiver exists in the list...
+	MessageReceiverList& messageReceiverList = this->messageMap[messageType];
+	MessageReceiverList::iterator listIter;
+	for(listIter = messageReceiverList.begin(); listIter != messageReceiverList.end(); ++listIter)
 	{
-		//See if the list contains the receiver
-		MessageReceiverList& messageReceiverList = found->second;
-		MessageReceiverList::iterator listIter;
-		for(listIter = messageReceiverList.begin(); listIter != messageReceiverList.end(); ++listIter)
+		// TO-DO: does comparing delegates like this work? Before we were comparing .obj_pointer, which is bad
+		if((*listIter) == receiver)
 		{
-			if((*listIter).object_ptr == receiver.object_ptr)
-			{
-				return true;
-			}
+			// Remove the reciever from the list
+			messageReceiverList.erase(listIter);
+			return;
 		}
 	}
-	return false;
 }
 
 bool MessageHandler::hasMessageType(MessageType messageType)
 {
-	return this->messageMap.find(messageType) != this->messageMap.end();
+	return this->messageMap[messageType].size() > 0;
 }
+
 
 void MessageHandler::printState()
 {
-	MessageMap::iterator mapIter;
-	for(mapIter = this->messageMap.begin(); mapIter != this->messageMap.end(); ++mapIter)
+	// Loop over the message map
+	for(int i = 0; i < NUM_MESSAGES; i++)
 	{
-		std::cout << "Message ID: " << mapIter->first << std::endl;
+		std::cout << "Message ID: " << i << std::endl;
 		MessageReceiverList::iterator listIter;
-		MessageReceiverList& list = mapIter->second;
+		MessageReceiverList& list = messageMap[i];
+
+		// Print the receiver functions from the list
 		for(listIter = list.begin(); listIter != list.end(); ++listIter)
 		{
 			std::cout << "  " << (*listIter).object_ptr << std::endl;

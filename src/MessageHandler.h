@@ -3,7 +3,7 @@
 #pragma once
 
 #include <iostream>
-#include <map>
+#include <vector>
 #include <list>
 #include <algorithm>
 
@@ -13,9 +13,13 @@
 
 typedef srutil::delegate<void (Message&)> ReceiverFunction;
 typedef std::list<ReceiverFunction> MessageReceiverList;
-typedef std::map<MessageType, MessageReceiverList> MessageMap;
+typedef std::vector<MessageReceiverList> MessageMap;
 
 #define DELEGATE(className, function, object) ReceiverFunction::from_method<className,&function>(object)
+
+/**
+*	Event system that contains a map from message type to a list of callback functions
+*/
 
 class MessageHandler
 {
@@ -24,12 +28,12 @@ public:
 	~MessageHandler();
 
 	/**
-	*	\brief broadcasts a message to all registered objects, callable from anywhere
+	*	\brief broadcasts a message to all registered objects
 	*/
 	void broadcastMessage(Message& message);
 	
 	/**
-	*	\brief register a object to receive that message type
+	*	\brief register an object to receive that message type
 	*/
 	void registerReceiver(MessageType messageType, ReceiverFunction receiver);
 
@@ -49,8 +53,6 @@ public:
 	void printState();
 
 private:
-
-	bool hasReceiver(MessageType messageType, ReceiverFunction receiver);
 
 	MessageMap messageMap;
 

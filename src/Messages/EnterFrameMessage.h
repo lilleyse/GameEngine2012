@@ -11,12 +11,13 @@ class EnterFrameMessage : public Message
 {
 public:
 	
-	EnterFrameMessage(){}
-	virtual ~EnterFrameMessage(){}
-
-	virtual MessageType getType()
+	EnterFrameMessage() : Message()
 	{
-		return MESSAGE_ENTER_FRAME;
+		messageType = MESSAGE_ENTER_FRAME;
+	}
+	~EnterFrameMessage()
+	{
+
 	}
 
 	float framerate;

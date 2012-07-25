@@ -7,3 +7,8 @@ MessageHandler& GameState::getMessageHandler()
 {
 	return this->messageHandler;
 }
+
+GLState& GameState::getGLState()
+{
+	return this->glState;
+}

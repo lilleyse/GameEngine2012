@@ -10,13 +10,21 @@ class Message
 {
 public:
 	
-	Message(){}
-	virtual ~Message(){}
-
-	virtual MessageType getType()
+	Message()
 	{
-		return MESSAGE_DEFAULT;
+		messageType = MESSAGE_ENTER_FRAME;
 	}
 
+	~Message()
+	{
+	
+	}
+
+	MessageType getType()
+	{
+		return messageType;
+	}
+
+	MessageType messageType;
 	std::string messageInfo;
 };
